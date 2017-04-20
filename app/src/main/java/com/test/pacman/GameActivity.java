@@ -7,6 +7,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.LinearLayout;
+
+import com.test.pacman.view.PersonView;
 
 public class GameActivity extends Activity implements View.OnTouchListener{
     private Button btn_left,btn_right,btn_top,btn_bottom;
@@ -15,6 +18,8 @@ public class GameActivity extends Activity implements View.OnTouchListener{
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_game);
+        LinearLayout layout = (LinearLayout) findViewById(R.id.activity_game);
+        layout.addView(new PersonView(this));
 
         initView();
     }
@@ -36,7 +41,7 @@ public class GameActivity extends Activity implements View.OnTouchListener{
             case MotionEvent.ACTION_DOWN:
                 switch (view.getId()){
                     case R.id.btn_bottom:
-                        Log.e("test","app:" + "bottom");
+
                         break;
                     case R.id.btn_left:
                         Log.e("test","app:" + "left");
