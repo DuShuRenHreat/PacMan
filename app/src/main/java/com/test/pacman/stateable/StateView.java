@@ -2,6 +2,7 @@ package com.test.pacman.stateable;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.os.Looper;
 import android.view.View;
 
 import java.util.HashMap;
@@ -11,6 +12,8 @@ import java.util.HashMap;
  */
 
 public class StateView extends View{
+    private String type = null;
+
     private HashMap<String,Stateable> states = new HashMap<>();
     public StateView(Context context) {
         super(context);
@@ -19,5 +22,23 @@ public class StateView extends View{
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        this.states.get(type).draw(canvas);
+    }
+    public void setStates(String type){
+        this.type = type;
+        updateDraw();
+    }
+    public void addState(String type ,Stateable stateable){
+        states.put(type,stateable);
+    }
+    public boolean isMainLoop(){
+        return Looper.getMainLooper() == Looper.myLooper();
+    }
+    public void updateDraw(){
+        if(isMainLoop()){
+            invalidate();
+        }else{
+            postInvalidate();
+        }
     }
 }

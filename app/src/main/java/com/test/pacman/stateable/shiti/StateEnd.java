@@ -5,16 +5,15 @@ import android.graphics.Canvas;
 import com.test.pacman.stateable.Stateable;
 
 /**
- * Created by asdf on 2017/4/20.
+ * Created by asdf on 2017/4/21.
  */
 
-public class StateDefault extends Stateable {
-    public StateDefault(){
+public class StateEnd extends Stateable {
+    public StateEnd(){
         super();
-
     }
     @Override
     public void draw(Canvas canvas) {
-        canvas.drawLine(150,150,200,200,paint);
+        canvas.drawLine(0,0,100,100,paint);
     }
 }

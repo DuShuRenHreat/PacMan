@@ -13,13 +13,15 @@ import com.test.pacman.view.PersonView;
 
 public class GameActivity extends Activity implements View.OnTouchListener{
     private Button btn_left,btn_right,btn_top,btn_bottom;
+    private  PersonView personView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_game);
         LinearLayout layout = (LinearLayout) findViewById(R.id.activity_game);
-        layout.addView(new PersonView(this));
+        personView = new PersonView(this);
+        layout.addView(personView);
 
         initView();
     }
@@ -41,7 +43,7 @@ public class GameActivity extends Activity implements View.OnTouchListener{
             case MotionEvent.ACTION_DOWN:
                 switch (view.getId()){
                     case R.id.btn_bottom:
-
+                        personView.play();
                         break;
                     case R.id.btn_left:
                         Log.e("test","app:" + "left");
@@ -50,6 +52,7 @@ public class GameActivity extends Activity implements View.OnTouchListener{
                         Log.e("test","app:" + "right");
                         break;
                     case R.id.btn_top:
+                        personView.end();
                         Log.e("test","app:" + "top");
                         break;
                 }
