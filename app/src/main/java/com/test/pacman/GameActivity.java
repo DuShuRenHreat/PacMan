@@ -19,10 +19,9 @@ public class GameActivity extends Activity implements View.OnTouchListener{
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_game);
         LinearLayout layout = (LinearLayout) findViewById(R.id.activity_game);
-        personView = new PersonView(this);
+      /*  personView = new PersonView(this);
         layout.addView(personView);
-        personView.raize();
-
+        personView.raize();*/
         initView();
     }
 

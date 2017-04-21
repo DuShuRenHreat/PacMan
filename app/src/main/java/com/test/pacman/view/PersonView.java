@@ -43,7 +43,6 @@ public class PersonView extends StateView{
         lp.width  = bitmap.getWidth();
         lp.height = bitmap.getHeight();
         setLayoutParams(lp);
-
     }
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
@@ -51,7 +50,6 @@ public class PersonView extends StateView{
         ViewGroup layout = ((ViewGroup)this.getParent());
         I_height = layout.getMeasuredHeight();
         I_width = layout.getMeasuredWidth();
-
         move.setBoundary(I_width,I_height);
 
     }
