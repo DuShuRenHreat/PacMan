@@ -2,6 +2,7 @@ package com.test.pacman.view;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.view.ViewGroup;
 
 import com.test.pacman.BitMapCache.BitMapCache;
@@ -51,7 +52,14 @@ public class PersonView extends StateView{
         I_height = layout.getMeasuredHeight();
         I_width = layout.getMeasuredWidth();
         move.setBoundary(I_width,I_height);
-
+    }
+    /**
+     * 获取当前位置
+     */
+    public Point getCurrent(){
+        Point point = new Point();
+        point.set((int)getX(), (int)getY());
+        return  point;
     }
     public void move(int type){
         this.setStates(PersonView.STATE_MOVE,type);
@@ -62,5 +70,12 @@ public class PersonView extends StateView{
     }
     public void end(){
         this.setStates(STATE_END);
+    }
+
+    public void setOnDrawLinstener(OnDrawLinstener onDrawLinstener){
+        onDrawLinstener.OnDraw((int)getX(),(int)getY());
+    }
+    public interface OnDrawLinstener{
+        public void OnDraw(int x,int y);
     }
 }

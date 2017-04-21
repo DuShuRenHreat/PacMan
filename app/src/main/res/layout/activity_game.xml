@@ -6,17 +6,19 @@
     android:layout_height="match_parent"
     tools:context="com.test.pacman.GameActivity">
     <LinearLayout
-        android:id="@+id/activity_game"
         android:layout_weight="1"
+        android:id="@+id/activity_game"
         android:orientation="vertical"
         android:gravity="center"
-        android:background="@android:color/holo_blue_dark"
+        android:background="@drawable/bg"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <com.test.pacman.view.MapView
+        android:layout_height="match_parent">
+        <FrameLayout
+            android:id="@+id/map_layout"
+            android:layout_gravity="center"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
+        </FrameLayout>
 
     </LinearLayout>
     <LinearLayout

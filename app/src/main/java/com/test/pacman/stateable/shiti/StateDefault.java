@@ -11,8 +11,10 @@ import com.test.pacman.view.PersonView;
 public class StateDefault extends Stateable {
     private int playID = 0;
     private int type = -1;
+    private PersonView view = null;
     public StateDefault(final StateView view){
         super();
+        this.view =  (PersonView)view;
         new Thread(new Runnable() {
             @Override
             public void run() {

@@ -6,22 +6,34 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
+import com.test.pacman.view.MyMapView;
 import com.test.pacman.view.PersonView;
 
 public class GameActivity extends Activity implements View.OnTouchListener{
     private Button btn_left,btn_right,btn_top,btn_bottom;
     private  PersonView personView;
+    private MyMapView map;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_game);
-        LinearLayout layout = (LinearLayout) findViewById(R.id.activity_game);
-      /*  personView = new PersonView(this);
-        layout.addView(personView);
-        personView.raize();*/
+        LinearLayout personlayout = (LinearLayout) findViewById(R.id.activity_game);
+        FrameLayout maplayout = (FrameLayout) findViewById(R.id.map_layout);
+
+        personView = new PersonView(this);
+        personlayout.addView(personView);
+        personView.raize();
+
+        map = new MyMapView(this);
+        maplayout.addView(map);
+        map.raize();
+
+        map.addMan(personView);
+
         initView();
     }
 

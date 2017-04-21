@@ -6,7 +6,9 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.test.pacman.R;
 
@@ -17,7 +19,7 @@ import java.io.InputStream;
  * Created by asdf on 2017/4/20.
  */
 
-public class MapView extends View{
+public class MyMapView extends View{
     public static final int[][] mFirst = {
             { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 },
             { 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3 },
@@ -87,23 +89,34 @@ public class MapView extends View{
     int bitMapWidth = 0;
     int bitMapHeight = 0;
     public Canvas canvas;
+    private PersonView man = null;
 
-    public MapView(Context context) {
+    public MyMapView(Context context) {
         super(context);
         initView(context);
     }
+    public void addMan(PersonView view){
+        this.man = view;
+        view.setOnDrawLinstener(new PersonView.OnDrawLinstener() {
+            @Override
+            public void OnDraw(int x, int y) {
+                Log.e("map","x:" + x + " y:" + y);
+            }
+        });
 
-    public MapView(Context context, AttributeSet attrs) {
+    }
+
+    public MyMapView(Context context, AttributeSet attrs) {
         super(context, attrs);
         initView(context);
     }
 
-    public MapView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public MyMapView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initView(context);
     }
 
-    public MapView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public MyMapView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         initView(context);
     }
@@ -116,13 +129,20 @@ public class MapView extends View{
         widThleCount = bitMapWidth / TILE_WIDTH;
         heightTileCount = bitMapHeight / TILE_HEIGHT;
     }
-
+    public void raize(){
+        ViewGroup.LayoutParams lp = getLayoutParams();
+        lp.width  = 1064;
+        lp.height = 1292;
+        setLayoutParams(lp);
+    }
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         this.canvas = canvas;
         DrawMap();
     }
+
+
     public void DrawMap(){
         int ViewID, ActorId,CollId;
         for(int i = 0 ; i < TILE_HEIGHT_COUNT; i++){
