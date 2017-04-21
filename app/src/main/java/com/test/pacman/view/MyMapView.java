@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -97,13 +96,6 @@ public class MyMapView extends View{
     }
     public void addMan(PersonView view){
         this.man = view;
-        view.setOnDrawLinstener(new PersonView.OnDrawLinstener() {
-            @Override
-            public void OnDraw(int x, int y) {
-                Log.e("map","x:" + x + " y:" + y);
-            }
-        });
-
     }
 
     public MyMapView(Context context, AttributeSet attrs) {

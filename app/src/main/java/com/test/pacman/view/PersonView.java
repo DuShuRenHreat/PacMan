@@ -72,10 +72,4 @@ public class PersonView extends StateView{
         this.setStates(STATE_END);
     }
 
-    public void setOnDrawLinstener(OnDrawLinstener onDrawLinstener){
-        onDrawLinstener.OnDraw((int)getX(),(int)getY());
-    }
-    public interface OnDrawLinstener{
-        public void OnDraw(int x,int y);
-    }
 }
