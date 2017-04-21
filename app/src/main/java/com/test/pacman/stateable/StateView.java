@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.os.Looper;
 import android.view.View;
 
+import com.test.pacman.stateable.shiti.StateDefault;
 import com.test.pacman.stateable.shiti.StateMove;
 
 import java.util.HashMap;
@@ -28,6 +29,10 @@ public class StateView extends View{
     public void setStates(String type,int direction){
         this.type = type;
         ((StateMove)this.states.get(type)).setType(direction);
+    }
+    public void setDefalutStates(String type,int direction){
+        this.type = type;
+        ((StateDefault)this.states.get(type)).setType(direction);
     }
     public void setStates(String type){
         this.type = type;

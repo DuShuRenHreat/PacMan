@@ -3,20 +3,16 @@ package com.test.pacman.stateable.shiti;
 import android.graphics.Canvas;
 
 import com.test.pacman.BitMapCache.BitMapCache;
-import com.test.pacman.R;
 import com.test.pacman.stateable.StateView;
 import com.test.pacman.stateable.Stateable;
+import com.test.pacman.view.PersonView;
 
-/**
- * Created by asdf on 2017/4/20.
- */
 
 public class StateDefault extends Stateable {
     private int playID = 0;
-    private StateView view = null;
+    private int type = -1;
     public StateDefault(final StateView view){
         super();
-        this.view = view;
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -31,17 +27,26 @@ public class StateDefault extends Stateable {
             }
         }).start();
     }
+
+    public StateDefault() {
+    }
+
     public int whichOne(){
         return ++playID == 4 ? playID = 0 : playID;
     }
     @Override
     public void draw(Canvas canvas) {
-        switch (whichOne()){
-            case 0: canvas.drawBitmap(BitMapCache.create(R.drawable.pic_down_1),0,0,paint);break;
-            case 1: canvas.drawBitmap(BitMapCache.create(R.drawable.pic_down_2),0,0,paint);break;
-            case 2: canvas.drawBitmap(BitMapCache.create(R.drawable.pic_down_3),0,0,paint);break;
-            case 3: canvas.drawBitmap(BitMapCache.create(R.drawable.pic_down_4),0,0,paint);break;
+        if(type == -1){
+            type = PersonView.STATE_MOVE_RIGHT;
         }
-
+        switch (whichOne()){
+            case 0: canvas.drawBitmap(BitMapCache.create(PersonView.imgs[type][0]),0,0,paint);break;
+            case 1: canvas.drawBitmap(BitMapCache.create(PersonView.imgs[type][1]),0,0,paint);break;
+            case 2: canvas.drawBitmap(BitMapCache.create(PersonView.imgs[type][2]),0,0,paint);break;
+            case 3: canvas.drawBitmap(BitMapCache.create(PersonView.imgs[type][3]),0,0,paint);break;
+        }
+    }
+    public void setType(int type){
+        this.type = type;
     }
 }

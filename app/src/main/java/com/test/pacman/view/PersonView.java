@@ -2,7 +2,6 @@ package com.test.pacman.view;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.util.Log;
 import android.view.ViewGroup;
 
 import com.test.pacman.BitMapCache.BitMapCache;
@@ -21,17 +20,21 @@ public class PersonView extends StateView{
 
     };
     public static final int STATE_MOVE_LEFT = 1;
-    public static final int STATE_MOVE_UP = 2;
-    public static final int STATE_MOVE_RIGHT = 3;
-    public static final int STATE_MOVE_DOWN = 4;
+    public static final int STATE_MOVE_UP = 3;
+    public static final int STATE_MOVE_RIGHT = 2;
+    public static final int STATE_MOVE_DOWN = 0;
     public static final String STATE_MOVE = "move";
     public static final String STATE_DEFAULT = "default";
     public static final String STATE_END = "end";
+    private int I_width = 0;
+    private int I_height = 0;
+    private StateMove move = null;
     public PersonView(Context context) {
         super(context);
+        move = new StateMove(STATE_MOVE_RIGHT,this);
         this.addState(STATE_DEFAULT,new StateDefault(this));
         this.addState(STATE_END,new StateEnd());
-        this.addState(STATE_MOVE,new StateMove(STATE_MOVE_RIGHT,this));
+        this.addState(STATE_MOVE,move);
         this.setStates(STATE_DEFAULT);
     }
     public void raize(){
@@ -42,12 +45,14 @@ public class PersonView extends StateView{
         setLayoutParams(lp);
 
     }
-
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         ViewGroup layout = ((ViewGroup)this.getParent());
-        Log.e("test","height: " + layout.getMeasuredHeight());
+        I_height = layout.getMeasuredHeight();
+        I_width = layout.getMeasuredWidth();
+
+        move.setBoundary(I_width,I_height);
 
     }
     public void move(int type){

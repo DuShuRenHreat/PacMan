@@ -2,7 +2,6 @@ package com.test.pacman;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -59,7 +58,6 @@ public class GameActivity extends Activity implements View.OnTouchListener{
                 }
                 break;
             case MotionEvent.ACTION_UP:
-                Log.e("test","app:" + "up");
                 break;
         }
         return false;
