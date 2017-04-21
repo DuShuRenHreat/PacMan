@@ -1,11 +1,16 @@
 package com.test.pacman.view;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.util.Log;
+import android.view.ViewGroup;
 
+import com.test.pacman.BitMapCache.BitMapCache;
 import com.test.pacman.R;
 import com.test.pacman.stateable.StateView;
 import com.test.pacman.stateable.shiti.StateDefault;
 import com.test.pacman.stateable.shiti.StateEnd;
+import com.test.pacman.stateable.shiti.StateMove;
 
 public class PersonView extends StateView{
     public static final int[][] imgs = {
@@ -15,15 +20,40 @@ public class PersonView extends StateView{
             {R.drawable.pic_up_1,R.drawable.pic_up_2,R.drawable.pic_up_3,R.drawable.pic_up_4}
 
     };
-
+    public static final int STATE_MOVE_LEFT = 1;
+    public static final int STATE_MOVE_UP = 2;
+    public static final int STATE_MOVE_RIGHT = 3;
+    public static final int STATE_MOVE_DOWN = 4;
+    public static final String STATE_MOVE = "move";
     public static final String STATE_DEFAULT = "default";
     public static final String STATE_END = "end";
     public PersonView(Context context) {
         super(context);
-        this.addState(STATE_DEFAULT,new StateDefault());
+        this.addState(STATE_DEFAULT,new StateDefault(this));
         this.addState(STATE_END,new StateEnd());
+        this.addState(STATE_MOVE,new StateMove(STATE_MOVE_RIGHT,this));
         this.setStates(STATE_DEFAULT);
     }
+    public void raize(){
+        Bitmap bitmap = BitMapCache.create(R.drawable.pic_down_1);
+        ViewGroup.LayoutParams lp = getLayoutParams();
+        lp.width  = bitmap.getWidth();
+        lp.height = bitmap.getHeight();
+        setLayoutParams(lp);
+
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        ViewGroup layout = ((ViewGroup)this.getParent());
+        Log.e("test","height: " + layout.getMeasuredHeight());
+
+    }
+    public void move(int type){
+        this.setStates(PersonView.STATE_MOVE,type);
+    }
+
     public void play(){
         this.setStates(STATE_DEFAULT);
     }

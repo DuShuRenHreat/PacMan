@@ -5,6 +5,8 @@ import android.graphics.Canvas;
 import android.os.Looper;
 import android.view.View;
 
+import com.test.pacman.stateable.shiti.StateMove;
+
 import java.util.HashMap;
 
 /**
@@ -13,7 +15,6 @@ import java.util.HashMap;
 
 public class StateView extends View{
     private String type = null;
-
     private HashMap<String,Stateable> states = new HashMap<>();
     public StateView(Context context) {
         super(context);
@@ -23,6 +24,10 @@ public class StateView extends View{
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         this.states.get(type).draw(canvas);
+    }
+    public void setStates(String type,int direction){
+        this.type = type;
+        ((StateMove)this.states.get(type)).setType(direction);
     }
     public void setStates(String type){
         this.type = type;
@@ -41,4 +46,5 @@ public class StateView extends View{
             postInvalidate();
         }
     }
+
 }

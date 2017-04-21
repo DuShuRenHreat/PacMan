@@ -22,9 +22,11 @@ public class GameActivity extends Activity implements View.OnTouchListener{
         LinearLayout layout = (LinearLayout) findViewById(R.id.activity_game);
         personView = new PersonView(this);
         layout.addView(personView);
+        personView.raize();
 
         initView();
     }
+
 
     public void initView(){
         btn_bottom = (Button) findViewById(R.id.btn_bottom);
@@ -43,17 +45,16 @@ public class GameActivity extends Activity implements View.OnTouchListener{
             case MotionEvent.ACTION_DOWN:
                 switch (view.getId()){
                     case R.id.btn_bottom:
-                        personView.play();
+                        personView.move(PersonView.STATE_MOVE_DOWN);
                         break;
                     case R.id.btn_left:
-                        Log.e("test","app:" + "left");
+                        personView.move(PersonView.STATE_MOVE_LEFT);
                         break;
                     case R.id.btn_right:
-                        Log.e("test","app:" + "right");
+                        personView.move(PersonView.STATE_MOVE_RIGHT);
                         break;
                     case R.id.btn_top:
-                        personView.end();
-                        Log.e("test","app:" + "top");
+                        personView.move(PersonView.STATE_MOVE_UP);
                         break;
                 }
                 break;
