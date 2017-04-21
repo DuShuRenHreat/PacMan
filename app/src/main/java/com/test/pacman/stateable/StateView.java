@@ -15,6 +15,7 @@ import java.util.HashMap;
  */
 
 public class StateView extends View{
+    public OnDrawLinstener linstener = null;
     private String type = null;
     private HashMap<String,Stateable> states = new HashMap<>();
     public StateView(Context context) {
@@ -52,7 +53,7 @@ public class StateView extends View{
         }
     }
     public void setOnDrawLinstener(OnDrawLinstener onDrawLinstener){
-        onDrawLinstener.OnDraw((int)getX(),(int)getY());
+        linstener = onDrawLinstener;
     }
     public interface OnDrawLinstener{
         public void OnDraw(int x,int y);
