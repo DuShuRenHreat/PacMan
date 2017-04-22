@@ -157,6 +157,7 @@ public class MyMapView extends View{
         int ysize = 0;
         switch (type){
             case PersonView.STATE_MOVE_DOWN:
+                //穿墙处理
                 break;
             case PersonView.STATE_MOVE_UP:
                 x += 66;
@@ -167,7 +168,6 @@ public class MyMapView extends View{
                 xsize = x / 76;
                 ysize = y / 76;
                 if(mSec[xsize - 1][ysize] == 5){
-                    Log.e("tset","ddddd");
                     if((x % 76) != 0){
                         personView.play(PersonView.STATE_MOVE_LEFT);
                     }
@@ -178,7 +178,6 @@ public class MyMapView extends View{
                 xsize = (x +76) / 76;
                 ysize = (y +76) / 76;
                 if(mSec[xsize + 1][ysize] == 5){
-                    Log.e("test", "y: " + y + " bb: " + ysize);
                     if((x % 76) != 0)
                         personView.play(PersonView.STATE_MOVE_RIGHT);
                 }
