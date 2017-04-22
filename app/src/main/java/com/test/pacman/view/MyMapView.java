@@ -140,7 +140,29 @@ public class MyMapView extends View{
 
     @Mess("Book")
     public void test(float[] msg){
-        int mapWidth = 14;
+
+       //中心点
+        int x = (int)(msg[1] + 36);
+        int y = (int)(msg[0] + 36);
+
+        //当前位置
+         int xsize = x / 76;
+        int ysize = y / 76;
+        //上下左右的路
+        int top = mSec[xsize - 1][ysize];
+        int down = mSec[xsize + 1][ysize];
+        int left = mSec[xsize][ysize - 1];
+        int right = mSec[xsize][ysize + 1];
+        Log.e("test","X: " + xsize + " Y: " + ysize);
+        Log.e("test","left: " + left + " right: " + right + " top: " + top + " down: " + down );
+        switch (type){
+            case PersonView.STATE_MOVE_DOWN:if(down == 5 ) personView.play(type);break;
+            case PersonView.STATE_MOVE_UP:if(top == 5 ) personView.play(type);break;
+            case PersonView.STATE_MOVE_LEFT:if(left == 5 ) personView.play(type);break;
+            case PersonView.STATE_MOVE_RIGHT:if(right == 5 ) personView.play(type);break;
+        }
+   //     Log.e("test","X: " + xsize + " Y: " + ysize + " left: " + left + " right: " + right  + " top: " + top + " down: " + down);
+   /*     int mapWidth = 14;
         int mapHeight = 17;
         float xsize = msg[0];
         float ysize = msg[1];
@@ -167,7 +189,7 @@ public class MyMapView extends View{
             xsize = msg[0];
             ysize = msg[1];
         }
-
+*/
     }
     public void raize(){
         ViewGroup.LayoutParams lp = getLayoutParams();
