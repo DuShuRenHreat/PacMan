@@ -84,6 +84,7 @@ public class MyMapView extends View{
     public final static int TILE_WIDTH_COUNT = 14;
     public final static int TILE_HEIGHT_COUNT = 17;
     public final static int TILE_NULL = 0;
+    private boolean isTest = false;
     int type = PersonView.STATE_MOVE_RIGHT;
     Bitmap bitmap = null;
     Paint paint = null;
@@ -140,56 +141,68 @@ public class MyMapView extends View{
 
     @Mess("Book")
     public void test(float[] msg){
+        onFirst(msg);
+   //     Log.e("test","X: " + xsize + " Y: " + ysize + " left: " + left + " right: " + right  + " top: " + top + " down: " + down);
+    }
 
-       //中心点
-        int x = (int)(msg[1] + 36);
-        int y = (int)(msg[0] + 36);
-
+    /**
+     * 上下左右都行
+     * */
+    public void onFirst(float[] msg){
+        //第一个点
+        int x = (int)(msg[1]);
+        int y = (int)(msg[0]);
+        //中心点
+        int xsize = 0;
+        int ysize = 0;
+        switch (type){
+            case PersonView.STATE_MOVE_DOWN:
+                break;
+            case PersonView.STATE_MOVE_UP:
+                x += 66;
+                break;
+            case PersonView.STATE_MOVE_LEFT:
+                y += 66;
+                //穿墙处理 ok
+                xsize = x / 76;
+                ysize = y / 76;
+                if(mSec[xsize - 1][ysize] == 5){
+                    Log.e("tset","ddddd");
+                    if((x % 76) != 0){
+                        personView.play(PersonView.STATE_MOVE_LEFT);
+                    }
+                }
+                break;
+            case PersonView.STATE_MOVE_RIGHT:
+                //穿墙处理
+                xsize = (x +76) / 76;
+                ysize = (y +76) / 76;
+                if(mSec[xsize + 1][ysize] == 5){
+                    Log.e("test", "y: " + y + " bb: " + ysize);
+                    if((x % 76) != 0)
+                        personView.play(PersonView.STATE_MOVE_RIGHT);
+                }
+                break;
+        }
+        xsize = x / 76;
+        ysize = y / 76;
         //当前位置
-         int xsize = x / 76;
-        int ysize = y / 76;
         //上下左右的路
         int top = mSec[xsize - 1][ysize];
         int down = mSec[xsize + 1][ysize];
         int left = mSec[xsize][ysize - 1];
         int right = mSec[xsize][ysize + 1];
+        //  x % 76;
+        //  y % 76;
+        Log.e("test","X: " + x + " Y: " + y);
         Log.e("test","X: " + xsize + " Y: " + ysize);
         Log.e("test","left: " + left + " right: " + right + " top: " + top + " down: " + down );
         switch (type){
             case PersonView.STATE_MOVE_DOWN:if(down == 5 ) personView.play(type);break;
-            case PersonView.STATE_MOVE_UP:if(top == 5 ) personView.play(type);break;
+            case PersonView.STATE_MOVE_UP:if(top == 5 )  personView.play(type);break;
             case PersonView.STATE_MOVE_LEFT:if(left == 5 ) personView.play(type);break;
             case PersonView.STATE_MOVE_RIGHT:if(right == 5 ) personView.play(type);break;
         }
-   //     Log.e("test","X: " + xsize + " Y: " + ysize + " left: " + left + " right: " + right  + " top: " + top + " down: " + down);
-   /*     int mapWidth = 14;
-        int mapHeight = 17;
-        float xsize = msg[0];
-        float ysize = msg[1];
-        int x = (int)(msg[0] / 76);
-        int y = (int)(msg[1] / 76);
-        for (int curX = 0; curX <= mapWidth; curX += 76) {
-            if (curX <= msg[0] && msg[0] < curX + 76) {
-                x = curX;
-            }
-        }
-        for (int curY = 0; curY <= mapHeight; curY += 76) {
-            if (curY <= msg[1] && msg[1] < curY + 76) {
-                y = curY;
-            }
-        }
-
-        Log.e("MapView","X: " + x + " Y:" + y + "size:" + mSec[x][y] );
-
-        if(mSec[x][y] == 5){
-            personView.setX(xsize);
-            personView.setY(ysize);
-            personView.play(type);
-        }else{
-            xsize = msg[0];
-            ysize = msg[1];
-        }
-*/
     }
     public void raize(){
         ViewGroup.LayoutParams lp = getLayoutParams();
