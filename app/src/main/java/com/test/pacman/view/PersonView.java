@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import com.test.pacman.BitMapCache.BitMapCache;
 import com.test.pacman.R;
+import com.test.pacman.messager.Messager;
 import com.test.pacman.stateable.StateView;
 import com.test.pacman.stateable.shiti.StateDefault;
 import com.test.pacman.stateable.shiti.StateEnd;
@@ -32,11 +33,14 @@ public class PersonView extends StateView{
     private StateMove move = null;
     public PersonView(Context context) {
         super(context);
+
         move = new StateMove(STATE_MOVE_RIGHT,this);
         this.addState(STATE_DEFAULT,new StateDefault(this));
         this.addState(STATE_END,new StateEnd());
         this.addState(STATE_MOVE,move);
         this.setStates(STATE_DEFAULT);
+        Messager.getInstance().register(this);
+
     }
     public void raize(){
         Bitmap bitmap = BitMapCache.create(R.drawable.pic_down_1);
@@ -53,6 +57,7 @@ public class PersonView extends StateView{
         I_width = layout.getMeasuredWidth();
         move.setBoundary(I_width,I_height);
     }
+
     /**
      * 获取当前位置
      */
@@ -67,6 +72,9 @@ public class PersonView extends StateView{
 
     public void play(){
         this.setStates(STATE_DEFAULT);
+    }
+    public void play(int type){
+        this.setDefalutStates(STATE_DEFAULT,type);
     }
     public void end(){
         this.setStates(STATE_END);

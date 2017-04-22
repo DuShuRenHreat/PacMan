@@ -16,4 +16,6 @@ public class MyAppliaction extends Application {
         super.onCreate();
         cache = new BitMapCache(this);
     }
+
+
 }

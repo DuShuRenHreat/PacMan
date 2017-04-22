@@ -25,16 +25,20 @@ public class GameActivity extends Activity implements View.OnTouchListener{
         FrameLayout maplayout = (FrameLayout) findViewById(R.id.map_layout);
 
         personView = new PersonView(this);
-        personlayout.addView(personView);
+     /*   personlayout.addView(personView);
         personView.raize();
-
+*/
         map = new MyMapView(this);
         maplayout.addView(map);
         map.raize();
 
+        maplayout.addView(personView);
+        personView.raize();
         map.addMan(personView);
 
         initView();
+
+
     }
 
 
@@ -56,15 +60,19 @@ public class GameActivity extends Activity implements View.OnTouchListener{
                 switch (view.getId()){
                     case R.id.btn_bottom:
                         personView.move(PersonView.STATE_MOVE_DOWN);
+                        map.setType(PersonView.STATE_MOVE_DOWN);
                         break;
                     case R.id.btn_left:
                         personView.move(PersonView.STATE_MOVE_LEFT);
+                        map.setType(PersonView.STATE_MOVE_LEFT);
                         break;
                     case R.id.btn_right:
                         personView.move(PersonView.STATE_MOVE_RIGHT);
+                        map.setType(PersonView.STATE_MOVE_RIGHT);
                         break;
                     case R.id.btn_top:
                         personView.move(PersonView.STATE_MOVE_UP);
+                        map.setType(PersonView.STATE_MOVE_UP);
                         break;
                 }
                 break;
@@ -73,4 +81,6 @@ public class GameActivity extends Activity implements View.OnTouchListener{
         }
         return false;
     }
+
+
 }

@@ -32,28 +32,28 @@ public class StateMove extends StateDefault{
                 if(y  + view.getHeight() >= mHeight ){
                     view.setDefalutStates(PersonView.STATE_DEFAULT,PersonView.STATE_MOVE_DOWN);
                 }else{
-                    view.setY(view.getY() + 10);
+                    view.setY(view.getY() + 19);
                 }
                 break;
             case PersonView.STATE_MOVE_LEFT:
                 if(x <= 0){
                     view.setDefalutStates(PersonView.STATE_DEFAULT,PersonView.STATE_MOVE_LEFT);
                 }else{
-                    view.setX(view.getX() - 10);
+                    view.setX(view.getX() - 19);
                 }
                 break;
             case PersonView.STATE_MOVE_RIGHT:
                 if(x  + view.getWidth() >= mWidth){
                     view.setDefalutStates(PersonView.STATE_DEFAULT,PersonView.STATE_MOVE_RIGHT);
                 }else{
-                    view.setX(view.getX()  + 10);
+                    view.setX(view.getX()  + 19);
                 }
                 break;
             case PersonView.STATE_MOVE_UP:
                 if(y <= 0){
                     view.setDefalutStates(PersonView.STATE_DEFAULT,PersonView.STATE_MOVE_UP);
                 }else{
-                    view.setY(view.getY() - 10);
+                    view.setY(view.getY() - 19);
                 }
                 break;
         }

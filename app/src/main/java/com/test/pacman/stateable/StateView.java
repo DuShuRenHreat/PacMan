@@ -4,15 +4,9 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.os.Looper;
 import android.view.View;
-
 import com.test.pacman.stateable.shiti.StateDefault;
 import com.test.pacman.stateable.shiti.StateMove;
-
 import java.util.HashMap;
-
-/**
- * Created by asdf on 2017/4/20.
- */
 
 public class StateView extends View{
     public OnDrawLinstener linstener = null;

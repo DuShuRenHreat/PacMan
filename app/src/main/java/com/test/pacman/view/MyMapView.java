@@ -6,10 +6,13 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.test.pacman.R;
+import com.test.pacman.messager.Mess;
+import com.test.pacman.messager.Messager;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -81,21 +84,30 @@ public class MyMapView extends View{
     public final static int TILE_WIDTH_COUNT = 14;
     public final static int TILE_HEIGHT_COUNT = 17;
     public final static int TILE_NULL = 0;
+    int type = PersonView.STATE_MOVE_RIGHT;
     Bitmap bitmap = null;
     Paint paint = null;
     int widThleCount = 0;
     int heightTileCount = 0;
     int bitMapWidth = 0;
     int bitMapHeight = 0;
+
     public Canvas canvas;
-    private PersonView man = null;
+    private PersonView personView = null;
 
     public MyMapView(Context context) {
         super(context);
         initView(context);
     }
+
+    public void setType(int type){
+        this.type = type;
+    }
+
     public void addMan(PersonView view){
-        this.man = view;
+        this.personView = view;
+        personView.setX(76);
+        personView.setY(76);
     }
 
     public MyMapView(Context context, AttributeSet attrs) {
@@ -113,6 +125,9 @@ public class MyMapView extends View{
         initView(context);
     }
 
+
+
+
     public void initView(Context context){
         paint = new Paint();
         bitmap = ReadBitMap(context, R.drawable.pic);
@@ -120,6 +135,39 @@ public class MyMapView extends View{
         bitMapHeight = bitmap.getHeight();
         widThleCount = bitMapWidth / TILE_WIDTH;
         heightTileCount = bitMapHeight / TILE_HEIGHT;
+        Messager.getInstance().register(this);
+    }
+
+    @Mess("Book")
+    public void test(float[] msg){
+        int mapWidth = 14;
+        int mapHeight = 17;
+        float xsize = msg[0];
+        float ysize = msg[1];
+        int x = (int)(msg[0] / 76);
+        int y = (int)(msg[1] / 76);
+        for (int curX = 0; curX <= mapWidth; curX += 76) {
+            if (curX <= msg[0] && msg[0] < curX + 76) {
+                x = curX;
+            }
+        }
+        for (int curY = 0; curY <= mapHeight; curY += 76) {
+            if (curY <= msg[1] && msg[1] < curY + 76) {
+                y = curY;
+            }
+        }
+
+        Log.e("MapView","X: " + x + " Y:" + y + "size:" + mSec[x][y] );
+
+        if(mSec[x][y] == 5){
+            personView.setX(xsize);
+            personView.setY(ysize);
+            personView.play(type);
+        }else{
+            xsize = msg[0];
+            ysize = msg[1];
+        }
+
     }
     public void raize(){
         ViewGroup.LayoutParams lp = getLayoutParams();
